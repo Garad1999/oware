@@ -148,11 +148,15 @@ let useHouse n board =
                 | 12 -> 
                     printfn ("Here.....: %d: origin: %d") house_num origin
                     match origin = house_num with
-                    |true -> plantseeds (seeds-1) (plant_or_harvest (numseeds+1) updateboard (house_num+1)) 1 origin
+                    |true -> 
+                        printfn ("True test\n\n\n\n\n\n\nt")
+                        plantseeds (seeds-1) (plant_or_harvest ((getSeeds (house_num+1) updateboard)+1) updateboard (house_num+1)) 1 origin
                     |false -> plantseeds (seeds-1) (plant_or_harvest (numseeds+1) updateboard house_num) 1 origin
                 | _ ->
                     match origin = house_num with
-                    | true -> plantseeds (seeds-1) (plant_or_harvest (numseeds+1) updateboard (house_num+1)) (house_num+1) origin
+                    | true -> 
+                        printfn ("True test\n\n\n\n\n\n\nt")
+                        plantseeds (seeds-1) (plant_or_harvest ((getSeeds (house_num+1) updateboard)+1) updateboard (house_num+1)) (house_num+1) origin
                     | false -> plantseeds (seeds-1) (plant_or_harvest (numseeds+1) updateboard house_num) (house_num+1) origin
             | false ->
                 printfn ("Here Seed at %d") house_num
@@ -216,7 +220,7 @@ let main _ =
            | [] -> game
            | x::xs -> play xs (useHouse x game)
        play numbers (start South)
-   let game = playGame [1; 12; 3; 10; 5; 8; 1; 12; 3; 10; 4; 8; 2]//[2; 11; 3; 10; 4; 12; 1; 8; 6; 7; 5; 12; 2; 11; 1; 10]
+   let game = playGame [1; 7; 2; 9; 3; 10; 1; 11; 2; 9; 4; 7; 5; 12; 3; 11; 6]//[2; 11; 3; 10; 4; 12; 1; 8; 6; 7; 5; 12; 2; 11; 1; 10]
    printBoard game
    let x = gameState game
    printScore game
