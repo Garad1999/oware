@@ -140,21 +140,28 @@ let useHouse n board =
     match valid_house_selected n board with
     | true -> 
         let numseeds = getSeeds n board
-        let rec plantseeds seeds updateboard house_num =
+        let rec plantseeds seeds updateboard house_num origin=
             match seeds > 0 with //are there still seeds left to plant?
             | true -> //planting
                 let numseeds = getSeeds house_num updateboard
                 match house_num with //if house number  = 12 next house_num = 1
-                | 12 -> plantseeds (seeds-1) (plant_or_harvest (numseeds+1) updateboard house_num) 1 
-                | _ -> plantseeds (seeds-1) (plant_or_harvest (numseeds+1) updateboard house_num) (house_num+1) 
+                | 12 -> 
+                    printfn ("Here.....: %d: origin: %d") house_num origin
+                    match origin = house_num with
+                    |true -> plantseeds (seeds-1) (plant_or_harvest (numseeds+1) updateboard (house_num+1)) 1 origin
+                    |false -> plantseeds (seeds-1) (plant_or_harvest (numseeds+1) updateboard house_num) 1 origin
+                | _ ->
+                    match origin = house_num with
+                    | true -> plantseeds (seeds-1) (plant_or_harvest (numseeds+1) updateboard (house_num+1)) (house_num+1) origin
+                    | false -> plantseeds (seeds-1) (plant_or_harvest (numseeds+1) updateboard house_num) (house_num+1) origin
             | false ->
                 printfn ("Here Seed at %d") house_num
                 harvestor updateboard (house_num-1)//work back through planted houses
         let board = plant_or_harvest 0 board n
         //let board = {board with turn = board.turn*(-1)}
         match (n+1)>12 with
-        |false -> plantseeds numseeds board (n+1) //start recursive function
-        |true -> plantseeds numseeds board (1) //start recursive function
+        |false -> plantseeds numseeds board (n+1) n//start recursive function
+        |true -> plantseeds numseeds board (1) n//start recursive function
     | false -> board
     
 
