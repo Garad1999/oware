@@ -192,8 +192,8 @@ let useHouse n board =
             |false -> plantseeds numseeds board (n+1) n//start recursive function
             |true -> plantseeds numseeds board (1) n//start recursive function
         | false -> board
-    | false -> 
-        let rec plantseeds seeds updateboard house_num origin=
+    | false -> board
+        (*let rec plantseeds seeds updateboard house_num origin=
             match seeds > 0 with //are there still seeds left to plant?
             | true -> //planting
                 let numseeds = getSeeds house_num updateboard
@@ -222,7 +222,7 @@ let useHouse n board =
         //match (newhouse+1)>12 with
         //|false -> plantseeds numseeds board (newhouse+1) newhouse //start recursive function
         //|true -> plantseeds numseeds board (1) newhouse//start recursive function
-        //plantseeds numseeds board newhouse newhouse
+        //plantseeds numseeds board newhouse newhouse *)
        
     
 
