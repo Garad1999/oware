@@ -217,9 +217,13 @@ let useHouse n board =
                     printfn ("Here Seed at %d") house_num
                     harvestor updateboard (house_num-1)//work back through planted houses\
             //let n = give_opponent_pieces board
-            let numseeds = getSeeds (give_opponent_pieces board) board
+            let newhouse = give_opponent_pieces board
+            let numseeds = getSeeds newhouse board
             let board = plant_or_harvest 0 board (give_opponent_pieces board)
-            plantseeds numseeds board (give_opponent_pieces board) (give_opponent_pieces board)
+            match (newhouse+1)>12 with
+            |false -> plantseeds numseeds board (n+1) n//start recursive function
+            |true -> plantseeds numseeds board (1) n//start recursive function
+            //plantseeds numseeds board newhouse newhouse
         | false -> board
     
 
